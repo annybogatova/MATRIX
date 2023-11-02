@@ -5,6 +5,7 @@
 #include <Windows.h>
 #include <iostream>
 #include "Line.h"
+#include "Windows.h"
 
 struct Line::cs getConsoleSize() {
     struct Line::cs tmp;
@@ -25,7 +26,7 @@ void Line::GotoXY(int x, int y) {
     SetConsoleCursorPosition(hStdOut, coord);
 }
 
-Line::Line(int lineLength, int lineSpeed, bool epilepsyMode) : LineLength(lineLength), LineSpeed(lineSpeed),
+Line::Line(int lineLength, bool epilepsyMode) : LineLength(lineLength),
                                                                EpilepsyMode(epilepsyMode) {
     conSize = getConsoleSize();
     X = 1 + rand()%(conSize.width - 2);
@@ -33,23 +34,26 @@ Line::Line(int lineLength, int lineSpeed, bool epilepsyMode) : LineLength(lineLe
 }
 
 void Line::Move() {
-    if(Y == 0){
-        sc_end = true;
-    }
-    if (Y > 0){
-        Draw();
-        Y--;
-    }
-    if(Y + LineLength + 1 == 1){
-        this->~Line();
-    } else{
-        if(Y <= conSize.height - LineLength){
-            if(sc_end){
-                Y--;
-            }
-            Errase();
+    if(!EOL) {
+        if (Y == 0) {
+            sc_end = true;
         }
+        if (Y > 0) {
+            Draw();
+            Y--;
+        }
+        if (Y + LineLength == 1) {
+            EOL = true;
+            this->~Line();      //rewrite
+        } else {
+            if (Y <= conSize.height - LineLength) {
+                if (sc_end) {
+                    Y--;
+                }
+                Erase();
+            }
 
+        }
     }
 
 }
@@ -63,7 +67,7 @@ void Line::Draw() {
     }
 }
 
-void Line::Errase() {
+void Line::Erase() {
     GotoXY(X - ((Y + LineLength) % 2), (Y + LineLength));
     printf(" ");
     if((Y + LineLength) % 2== 1){

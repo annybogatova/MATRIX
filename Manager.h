@@ -10,6 +10,9 @@
 
 class Manager {
 
+public:
+    Manager();
+
 };
 
 

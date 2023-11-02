@@ -7,20 +7,19 @@
 #include <cstdlib>
 #include <cctype>
 #include <iostream>
+#include <synchapi.h>
 #include "Welcome.h"
 #include "Manager.h"
 #include "Run.h"
+#include "Line.h"
 
 Welcome::Welcome() {
-    srand(time(NULL));
     IntroduceSelf();
-    system("cls");
 }
 
 void Welcome::IntroduceSelf() {
     printf("%s", this->welcome_mess);
     CheckParameters();
-    Run run(LineLength, LineSpeed, LineFrequency, EpilepsyMode);
 }
 
 int Welcome::getLineLength() const {

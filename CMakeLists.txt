@@ -13,4 +13,8 @@ add_executable(MATRIX main.cpp
         Welcome.cpp
         Welcome.h
         Run.cpp
-        Run.h)
+        Run.h
+        Windows.cpp
+        Windows.h
+        cs.cpp
+        cs.h)

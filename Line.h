@@ -12,21 +12,19 @@ class Line {
 
 private:
     int LineLength;
-    int LineSpeed;
     bool EpilepsyMode;
 
     int X = 0;
     int Y = 0;
-    bool sc = true;
     bool sc_end = false;
 
     void Draw();
-    void Errase();
+    void Erase();
 
     Symbol symbol = *new Symbol(EpilepsyMode);
 
 public:
-    Line(int lineLength, int lineSpeed, bool epilepsyMode);
+    Line(int lineLength, bool epilepsyMode);
 
     void Move();
 
@@ -37,6 +35,7 @@ public:
     };
     struct cs conSize;
     void GotoXY(int x, int y);
+    bool EOL = false;
 
     ~Line() {symbol.~Symbol();}
 };
