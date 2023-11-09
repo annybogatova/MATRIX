@@ -12,7 +12,6 @@ class Manager {
 
 public:
     Manager();
-
 };
 
 

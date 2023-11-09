@@ -8,10 +8,8 @@
 #include <random>
 
 char Symbol::SetValue() const{
-    int n = 33 + rand()%126;
-    if (!isprint(n)){
-        n = 33 + rand()%126;
-    }
+    int n = 33 + rand()%(126-33);
+
     if(EpilepsyMode){
         SetTextColor();
     } else {

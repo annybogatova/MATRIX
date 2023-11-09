@@ -6,6 +6,7 @@
 #define MATRIX_RUN_H
 
 
+#include <chrono>
 #include <vector>
 #include "Line.h"
 
@@ -16,11 +17,17 @@ class Run {
     bool EpilepsyMode;
 
     std::vector<Line> lines;
+    std::vector<double> time_points;
+    std::chrono::time_point<std::chrono::steady_clock> startClock, endClock;
+    std::chrono::duration<double> elapsed_seconds;
 
 public:
     Run(int lineLength, int lineSpeed, int lineFrequency, bool epilepsyMode);
     void Start();
-    int time_points[];
+
+    void SetRandTimePoints();
+
+    double GetRandomDouble(double a, double b);
 };
 
 

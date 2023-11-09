@@ -16,5 +16,4 @@ add_executable(MATRIX main.cpp
         Run.h
         Windows.cpp
         Windows.h
-        cs.cpp
         cs.h)

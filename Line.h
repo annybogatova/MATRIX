@@ -6,38 +6,41 @@
 #define MATRIX_LINE_H
 
 
+#include <chrono>
 #include "Symbol.h"
+#include "cs.h"
+#include "Windows.h"
 
 class Line {
 
 private:
+
+
+
     int LineLength;
+    double LineSpeed;
     bool EpilepsyMode;
 
     int X = 0;
     int Y = 0;
     bool sc_end = false;
+    Windows win;
 
     void Draw();
     void Erase();
 
     Symbol symbol = *new Symbol(EpilepsyMode);
+    std::chrono::time_point<std::chrono::steady_clock> startClock, endClock;
 
 public:
-    Line(int lineLength, bool epilepsyMode);
-
     void Move();
 
-    struct cs
-    {
-        int width;
-        int height;
-    };
     struct cs conSize;
-    void GotoXY(int x, int y);
     bool EOL = false;
-
+    Line(int lineLength, int lineSpeed, bool epilepsyMode);
     ~Line() {symbol.~Symbol();}
+
+    void tryMove();
 };
 
 

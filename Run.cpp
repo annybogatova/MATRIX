@@ -4,71 +4,73 @@
 
 #include <synchapi.h>
 #include <chrono>
+#include <vector>
+#include <algorithm>
+#include <random>
+
 #include "Run.h"
 #include "Line.h"
 
 void Run::Start() {
+    while (true){
+        endClock = std::chrono::steady_clock::now();
+        elapsed_seconds = std::chrono::duration_cast<std::chrono::milliseconds>(endClock - startClock);
+        if (!time_points.empty()){
+            auto begin = time_points.begin();
+            if (elapsed_seconds.count() >= *begin){
+                time_points.erase(begin);
+                lines.push_back(*new Line(LineLength,LineSpeed, EpilepsyMode));
+            }
+        }
 
-    int time_points[LineFrequency];
-    const auto start{std::chrono::steady_clock::now()};
-    auto end{std::chrono::steady_clock::now()};
-
-    for (int i = 0; i < LineFrequency; i++){
-        time_points[i] = 1 + rand()%999;
+        endClock = std::chrono::steady_clock::now();
+        elapsed_seconds = std::chrono::duration_cast<std::chrono::milliseconds>(endClock - startClock);
+        if (elapsed_seconds.count() > 1){
+            startClock = std::chrono::steady_clock::now();
+            time_points.clear();
+            SetRandTimePoints();
+        }
+        if (!lines.empty()){
+            for (auto iter = lines.begin(); iter != lines.end();){
+                if (iter->EOL){
+                    lines.erase(iter);
+                } else{
+                    iter->tryMove();
+                    ++iter;
+                }
+            }
+        }
     }
-
-    for (auto iter = lines.begin(); iter != lines.end();) {
-        iter->Move();
-        if(iter->EOL){
-            lines.erase(iter);
-        } else iter++;
-
-        Sleep(1000/LineSpeed);
-    }
-
-//    while (true){
-//        for (int i = 0; i < LineFrequency; i++){
-//            time_points[i] = 1 + rand()%999;
-//            lines.push_back(*new Line(LineLength, EpilepsyMode));
-//        }
-//        const std::chrono::duration<double> elapsed_seconds{end - start};
-//        while (true){
-//
-//            if(elapsed_seconds.count() == 1000){
-//                break;
-//            }
-//
-//        }
-//        end = {std::chrono::steady_clock::now()};
-//    }
 }
 
 Run::Run(int lineLength, int lineSpeed, int lineFrequency, bool epilepsyMode) : LineLength(lineLength),
                                                                                 LineSpeed(lineSpeed),
                                                                                 LineFrequency(lineFrequency),
                                                                                 EpilepsyMode(epilepsyMode) {
-//    Line line = *new Line(LineLength, EpilepsyMode);
-//    const auto start{std::chrono::steady_clock::now()};
-//    auto end{std::chrono::steady_clock::now()};
-    while (true){
-        const auto start{std::chrono::steady_clock::now()};
-//        for (int i = 0; i < LineFrequency; i++){
-//            lines.push_back(*new Line(LineLength, EpilepsyMode));
-//        }
-        lines.push_back(*new Line(LineLength, EpilepsyMode));
-        Start();
-        auto end{std::chrono::steady_clock::now()};
-        const std::chrono::duration<double> elapsed_seconds{end - start};
+    SetRandTimePoints();
+    startClock = std::chrono::steady_clock::now();
+    Start();
+}
 
-        Sleep(1000/LineFrequency);
+void Run::SetRandTimePoints(){
+    for(size_t i = 0; i < LineFrequency; i ++){
+        time_points.push_back(GetRandomDouble((double) 0, (double) 1));
     }
+    std::sort(begin(time_points), end(time_points));
+}
 
-//    for(int i = 0; i < 100; i++){
-//        line.Move();
-//        if (line.EOL) {
-//            break;
-//        }
-//        Sleep(1000/LineSpeed);
-//    }
+double Run::GetRandomDouble(double a, double b) {
 
+    namespace sc = std::chrono;
+    auto time = sc::system_clock::now(); // get the current time
+    auto since_epoch = time.time_since_epoch(); // get the duration since epoch
+    auto millis = sc::duration_cast<sc::nanoseconds>(since_epoch);
+
+    std::random_device rd;
+    std::mt19937 gen(millis.count());
+    std::uniform_real_distribution<double> dis(a, b);
+
+    double c = dis(gen);
+
+    return c;
 }

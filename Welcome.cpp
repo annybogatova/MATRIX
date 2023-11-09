@@ -22,9 +22,6 @@ void Welcome::IntroduceSelf() {
     CheckParameters();
 }
 
-int Welcome::getLineLength() const {
-    return LineLength;
-}
 
 void Welcome::setLineLength() {
     printf("%s", this->ll_mess);
@@ -40,9 +37,6 @@ void Welcome::setLineLength() {
     LineLength = length;
 }
 
-int Welcome::getLineSpeed() const {
-    return LineSpeed;
-}
 
 void Welcome::setLineSpeed() {
     printf("%s", this->ls_mess);
@@ -55,10 +49,6 @@ void Welcome::setLineSpeed() {
         printf("Wrong input!\n");
     }
     LineSpeed = speed;
-}
-
-int Welcome::getLineFrequency() const {
-    return LineFrequency;
 }
 
 void Welcome::setLineFrequency() {
@@ -76,10 +66,6 @@ void Welcome::setLineFrequency() {
         printf("Wrong input!\n");
     }
     LineFrequency = frequency;
-}
-
-bool Welcome::isEpilepsyMode() const {
-    return EpilepsyMode;
 }
 
 void Welcome::setEpilepsyMode() {
@@ -107,3 +93,19 @@ void Welcome::CheckParameters() {
     setEpilepsyMode();
 }
 
+
+bool Welcome::isEpilepsyMode() const {
+    return EpilepsyMode;
+}
+
+int Welcome::getLineLength() const {
+    return LineLength;
+}
+
+int Welcome::getLineSpeed() const {
+    return LineSpeed;
+}
+
+int Welcome::getLineFrequency() const {
+    return LineFrequency;
+}
