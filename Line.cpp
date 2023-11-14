@@ -43,19 +43,16 @@ void Line::Move() {
 }
 
 void Line::Draw() {
-    win.GotoXY(X - (Y % 2), Y);
-    printf("%c", symbol.SetValue());
+    Figure::Draw(X - (Y % 2), Y, symbol.SetValue());
     if(Y % 2 == 1){
-        win.GotoXY(X + (Y % 2), Y);
-        printf("%c", symbol.SetValue());
+        Figure::Draw(X + (Y % 2), Y, symbol.SetValue());
     }
 }
 
 void Line::Erase() {
-    win.GotoXY(X - ((Y + LineLength) % 2), (Y + LineLength));
-    printf(" ");
+    Figure::Draw(X - ((Y + LineLength) % 2), (Y + LineLength), ' ');
     if((Y + LineLength) % 2 == 1){
-        win.GotoXY(X + ((Y + LineLength) % 2), (Y + LineLength));
-        printf(" ");
+        Figure::Draw(X + ((Y + LineLength) % 2), (Y + LineLength), ' ');
+
     }
 }

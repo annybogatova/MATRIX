@@ -10,8 +10,7 @@ Manager::Manager(){
     srand(time(nullptr));
     setlocale(LC_ALL, "Russian");
     Welcome welcome; //introduce, set parameters
-    Windows windows; //
+    Windows windows;
     windows.clean();
-    windows.hidecursor();
     Run run(welcome.getLineLength(), welcome.getLineSpeed(), welcome.getLineFrequency(), welcome.isEpilepsyMode());
 }

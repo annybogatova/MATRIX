@@ -16,4 +16,8 @@ add_executable(MATRIX main.cpp
         Run.h
         Windows.cpp
         Windows.h
-        cs.h)
+        cs.h
+        Figure.cpp
+        Figure.h
+        Explosion.cpp
+        Explosion.h)

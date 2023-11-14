@@ -29,6 +29,7 @@ void Windows::clean() {
     HANDLE hStdout;
     hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
     cls(hStdout);
+    hidecursor();
 }
 
 void Windows::cls(HANDLE hConsole){

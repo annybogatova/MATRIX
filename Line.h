@@ -10,12 +10,11 @@
 #include "Symbol.h"
 #include "cs.h"
 #include "Windows.h"
+#include "Figure.h"
 
-class Line {
+class Line: public Figure{
 
 private:
-
-
 
     int LineLength;
     double LineSpeed;
