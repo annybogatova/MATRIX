@@ -10,6 +10,8 @@ void Figure::Draw(int x, int y, char symbol) {
     printf("%c", symbol);
 }
 
-void Figure::TryMove() {
-
+const std::pair<int, int> &Figure::getCoordinates() {
+    coordinates.first = X;
+    coordinates.second = Y;
+    return coordinates;
 }

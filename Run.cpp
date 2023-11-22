@@ -19,10 +19,10 @@ void Run::Start() {
             auto begin = time_points.begin();
             if (elapsed_seconds.count() >= *begin){
                 time_points.erase(begin);
-                lines.push_back(*new Line(LineLength,LineSpeed, EpilepsyMode));
+//                lines.push_back(*new Line(LineLength,LineSpeed, EpilepsyMode));
+                figures.push_back(new Line(LineLength, LineSpeed, ExplosionProbability, EpilepsyMode));
             }
         }
-
         endClock = std::chrono::steady_clock::now();
         elapsed_seconds = std::chrono::duration_cast<std::chrono::milliseconds>(endClock - startClock);
         if (elapsed_seconds.count() > 1){
@@ -30,12 +30,15 @@ void Run::Start() {
             time_points.clear();
             SetRandTimePoints();
         }
-        if (!lines.empty()){
-            for (auto iter = lines.begin(); iter != lines.end();){
-                if (iter->EOL){
-                    lines.erase(iter);
+        if (!figures.empty()){
+            for (auto iter = figures.begin(); iter != figures.end();){
+                if ((*iter)->EOL){
+                    figures.erase(iter);
                 } else{
-                    iter->tryMove();
+                    (*iter)->TryMove();
+                    if((*iter)->isExplod){
+                        figures.insert(figures.begin(), new Explosion((*iter)->getCoordinates().first, (*iter)->getCoordinates().second,MinimalRadius, MaximalRadius));
+                    }
                     ++iter;
                 }
             }
@@ -43,11 +46,16 @@ void Run::Start() {
     }
 }
 
-Run::Run(int lineLength, int lineSpeed, int lineFrequency, bool epilepsyMode) : LineLength(lineLength),
+Run::Run(int lineLength, int lineSpeed, int lineFrequency, bool epilepsyMode, int explosionProbability, int minimalRadius, int maximalRadius) : LineLength(lineLength),
                                                                                 LineSpeed(lineSpeed),
                                                                                 LineFrequency(lineFrequency),
-                                                                                EpilepsyMode(epilepsyMode) {
+                                                                                EpilepsyMode(epilepsyMode),
+                                                                                ExplosionProbability(explosionProbability),
+                                                                                MinimalRadius(minimalRadius),
+                                                                                MaximalRadius(maximalRadius){
+    Windows windows;
     SetRandTimePoints();
+    figures.reserve(LineFrequency*LineSpeed*(windows.getConsoleSize().height)*ExplosionProbability);
     startClock = std::chrono::steady_clock::now();
     Start();
 }
@@ -74,3 +82,4 @@ double Run::GetRandomDouble(double a, double b) {
 
     return c;
 }
+

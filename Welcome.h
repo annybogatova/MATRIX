@@ -16,7 +16,6 @@ class Welcome {
     const char *maxer_mess = "Enter maximum explosion radius 1 - 10 (characters, > minimum radius)\n";
     const char *em_mess = "Epilepsy mode Y/N (on/off)\n";
     const char *int_err = "Entered value must be integer.\n";
-    const char *val_err = "Enter value in range ";
 
     int LineLength = 0;
     int LineSpeed = 0;
