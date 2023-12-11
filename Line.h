@@ -20,25 +20,22 @@ private:
     double LineSpeed;
     int ExplosionProbability;
     bool EpilepsyMode;
-
     bool sc_end = false;
-    Windows win;
+    struct cs conSize = windows.getConsoleSize();
+
+    Symbol symbol = *new Symbol(EpilepsyMode);
+    std::chrono::time_point<std::chrono::steady_clock> startClock, endClock;
 
     void Draw();
     void Erase();
     void Move();
 
-    Symbol symbol = *new Symbol(EpilepsyMode);
-    std::chrono::time_point<std::chrono::steady_clock> startClock, endClock;
 
 public:
-
-    struct cs conSize;
     Line(int lineLength, int lineSpeed, int explosionProbability, bool epilepsyMode);
-    ~Line() {symbol.~Symbol();}
-
     void TryMove() override;
 
+    ~Line() {symbol.~Symbol();}
 };
 
 

@@ -33,9 +33,7 @@ void Explosion::Draw() {
     for (int curY = e_y + curR; curY >= e_y - curR; --curY){
         for(int curX = e_x - curR; curX < e_x + (curR + 0.4); ++curX){
             if(sqrt(pow(curX - e_x, 2) + pow(curY - e_y, 2)) >= (curR - 0.4) && sqrt(pow(curX - e_x, 2) + pow(curY - e_y, 2)) <= (curR + 0.4) ){
-                if((0 < curY < windows.getConsoleSize().height) && (0 < curX < windows.getConsoleSize().width)){
-                    Figure::Draw(curX, curY, symbol.SetValue());
-                }
+                Figure::Draw(curX, curY, symbol.SetValue());
             }
         }
     }
@@ -45,9 +43,7 @@ void Explosion::Erase(){
     for (int curY = e_y + (curR - 1); curY >= e_y - (curR - 1); --curY){
         for(int curX = e_x - (curR - 1); curX < e_x + ((curR - 1) + 0.4); ++curX){
             if(sqrt(pow(curX - e_x, 2) + pow(curY - e_y, 2)) >= ((curR - 1) - 0.4) && sqrt(pow(curX - e_x, 2) + pow(curY - e_y, 2)) <= ((curR - 1) + 0.4) ){
-                if((0 < curY < windows.getConsoleSize().height) && (0 < curX < windows.getConsoleSize().width)){
-                    Figure::Draw(curX, curY, ' ');
-                }
+                Figure::Draw(curX, curY, ' ');
             }
         }
     }

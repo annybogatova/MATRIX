@@ -8,7 +8,6 @@
 
 Line::Line(int lineLength, int lineSpeed, int explosionProbability, bool epilepsyMode)
         : LineLength(lineLength), LineSpeed((double)1.0 / lineSpeed), ExplosionProbability(explosionProbability), EpilepsyMode(epilepsyMode) {
-    conSize = win.getConsoleSize();
     X = 1 + rand()%(conSize.width - 2);
     Y = conSize.height - 1;
 }

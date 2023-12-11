@@ -16,9 +16,6 @@ protected:
     std::pair<int,int> coordinates;
     Windows windows;
 
-
-    char wtype;
-
 public:
     const std::pair<int, int> &getCoordinates();
     void Draw(int x, int y, char symbol);

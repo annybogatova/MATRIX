@@ -6,8 +6,10 @@
 #include "Figure.h"
 
 void Figure::Draw(int x, int y, char symbol) {
-    windows.GotoXY(x, y);
-    printf("%c", symbol);
+    if(x > 0 && x < windows.getConsoleSize().width && y > 0 && y < windows.getConsoleSize().height){
+        windows.GotoXY(x, y);
+        printf("%c", symbol);
+    }
 }
 
 const std::pair<int, int> &Figure::getCoordinates() {
