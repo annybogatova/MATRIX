@@ -12,4 +12,8 @@ Manager::Manager(){
     Welcome welcome; //introduce, set parameters
     Windows windows;
     windows.clean();
-    Run run(welcome.getLineLength(), welcome.getLineSpeed(), welcome.getLineFrequency(), welcome.isEpilepsyMode(), welcome.getExplosionProbability(), welcome.getMinimalRadius(), welcome.getMaximalRadius());
+    Run run(welcome.getLineLength(), welcome.getLineSpeed(),
+            welcome.getLineFrequency(), welcome.isEpilepsyMode(),
+            welcome.getExplosionProbability(), welcome.getMinimalRadius(),
+            welcome.getMaximalRadius());
+}

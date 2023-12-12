@@ -20,4 +20,8 @@ add_executable(MATRIX main.cpp
         Figure.cpp
         Figure.h
         Explosion.cpp
-        Explosion.h)
+        Explosion.h
+        ArrayList.h
+        Iterator.h
+        LinkedList.h
+        List.h)

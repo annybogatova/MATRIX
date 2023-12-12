@@ -19,7 +19,6 @@ void Run::Start() {
             auto begin = time_points.begin();
             if (elapsed_seconds.count() >= *begin){
                 time_points.erase(begin);
-//                lines.push_back(*new Line(LineLength,LineSpeed, EpilepsyMode));
                 figures.push_back(new Line(LineLength, LineSpeed, ExplosionProbability, EpilepsyMode));
             }
         }
@@ -37,7 +36,7 @@ void Run::Start() {
                 } else{
                     (*iter)->TryMove();
                     if((*iter)->isExplod){
-                        figures.insert(figures.begin(), new Explosion((*iter)->getCoordinates().first, (*iter)->getCoordinates().second,MinimalRadius, MaximalRadius));
+                        figures.push_back(new Explosion((*iter)->getCoordinates().first, (*iter)->getCoordinates().second,MinimalRadius, MaximalRadius));
                     }
                     ++iter;
                 }

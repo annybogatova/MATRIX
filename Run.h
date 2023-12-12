@@ -10,6 +10,7 @@
 #include <vector>
 #include "Line.h"
 #include "Explosion.h"
+#include "ArrayList.h"
 
 class Run {
     int LineLength = 0;
@@ -19,9 +20,7 @@ class Run {
     int MinimalRadius = 0;
     int MaximalRadius = 0;
     bool EpilepsyMode = false;
-//    std::vector<Line> lines;
-//    std::vector<Explosion> explCircles;
-    std::vector<Figure*> figures;
+    ArrayList<Figure*> figures;
     std::vector<double> time_points;
     std::chrono::time_point<std::chrono::steady_clock> startClock, endClock;
     std::chrono::duration<double> elapsed_seconds;
